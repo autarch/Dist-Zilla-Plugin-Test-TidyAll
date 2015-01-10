@@ -66,7 +66,6 @@ sub _file_content {
     }
 
     $content .= <<"EOF";
-
 tidyall_ok($args);
 
 done_testing();
@@ -110,5 +109,29 @@ This plugin accepts the following configuration options:
 =head2 conf_file
 
 If this is provided, it will be passed to the C<tidyall_ok()> sub.
+
+Note that you must provide a configuration file, either by using one of the
+default files that L<Test::Code::TidyAll> looks for, or by providing another
+file via this option.
+
+=head1 WHAT TO IGNORE IN YOUR TIDYALL CONFIG
+
+Many other plugins also add files to the final distro, and these may not pass
+your tidyall checks. You will need to ignore these files files in your tidyall
+config.
+
+Because of the way tidyall works, you'll also want to ignore the F<blib>
+directory. Here is a suggested set of C<ignore> directives for a dzil-based
+distro.
+
+    ignore = t/00-*
+    ignore = t/author-*
+    ignore = t/release-*
+    ignore = blib/**/*
+    ignore = .build/**/*
+    ignore = {{Your-Plugin-Name}}*/**/*
+
+This presumes that you will not create any tests of your own that start with
+"00-".
 
 =cut

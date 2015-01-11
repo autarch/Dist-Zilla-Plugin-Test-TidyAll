@@ -1,3 +1,4 @@
+requires "B" => "0";
 requires "Dist::Zilla::File::InMemory" => "0";
 requires "Dist::Zilla::Role::FileGatherer" => "0";
 requires "Dist::Zilla::Role::PrereqSource" => "0";
@@ -25,9 +26,11 @@ on 'configure' => sub {
 
 on 'develop' => sub {
   requires "Test::CPAN::Changes" => "0.19";
+  requires "Test::Code::TidyAll" => "0.24";
   requires "Test::EOL" => "0";
-  requires "Test::More" => "0";
+  requires "Test::More" => "0.88";
   requires "Test::NoTabs" => "0";
   requires "Test::Pod" => "1.41";
   requires "Test::Spelling" => "0.12";
+  requires "Test::Version" => "1";
 };

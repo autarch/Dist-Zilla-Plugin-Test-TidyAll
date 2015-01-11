@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
+use B;
 use Dist::Zilla::File::InMemory;
 
 use Moose;
@@ -30,6 +31,8 @@ sub register_prereqs {
         'Test::Code::TidyAll' => '0.24',
         'Test::More'          => '0.88',
     );
+
+    return;
 }
 
 sub gather_files {
@@ -62,7 +65,9 @@ sub _file_content {
     my $content = $head;
     my $args    = q{};
     if ( $self->_has_conf_file() ) {
+        ## no critic (Subroutines::ProhibitCallsToUnexportedSubs)
         $args = ' conf_file => ' . B::perlstring( $self->conf_file() ) . q{ };
+        ## use critic
     }
 
     $content .= <<"EOF";

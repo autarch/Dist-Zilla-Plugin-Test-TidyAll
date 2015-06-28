@@ -30,9 +30,6 @@ sub register_prereqs {
             type  => 'requires',
             phase => 'develop',
         },
-
-        # XXX - remove this once JSWARTZ gives me perms on Test::Code::TidyAll
-        'Code::TidyAll'       => '0.24',
         'Test::Code::TidyAll' => '0.24',
         'Test::More'          => '0.88',
     );

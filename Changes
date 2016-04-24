@@ -1,5 +1,8 @@
 {{$NEXT}}
 
+- Added a verbose option and a TEST_TIDYALL_VERBOSE env var.
+
+
 0.01     2015-01-11
 
 - First release upon an unsuspecting world.

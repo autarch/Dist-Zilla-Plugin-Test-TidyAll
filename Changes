@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.02     2016-04-24
+
 - Added a verbose option and a TEST_TIDYALL_VERBOSE env var.
 
 

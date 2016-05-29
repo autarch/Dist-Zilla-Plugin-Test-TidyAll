@@ -1,5 +1,10 @@
 {{$NEXT}}
 
+- Added a minimum_perl configuration option. If set, then the test will be
+  skipped on Perl versions that don't meet this requirement. This is useful if
+  you have tidyall plugins that require a certain version of Perl.
+
+
 0.02     2016-04-24
 
 - Added a verbose option and a TEST_TIDYALL_VERBOSE env var.

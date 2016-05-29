@@ -22,12 +22,12 @@ on 'configure' => sub {
 };
 
 on 'develop' => sub {
-  requires "Code::TidyAll" => "0.24";
+  requires "Code::TidyAll::Plugin::Test::Vars" => "0.02";
   requires "File::Spec" => "0";
   requires "IO::Handle" => "0";
   requires "IPC::Open3" => "0";
-  requires "Perl::Critic" => "1.123";
-  requires "Perl::Tidy" => "20140711";
+  requires "Perl::Critic" => "1.126";
+  requires "Perl::Tidy" => "20160302";
   requires "Pod::Wordlist" => "0";
   requires "Test::CPAN::Changes" => "0.19";
   requires "Test::CPAN::Meta::JSON" => "0.16";
@@ -41,6 +41,7 @@ on 'develop' => sub {
   requires "Test::Pod::LinkCheck" => "0";
   requires "Test::Pod::No404s" => "0";
   requires "Test::Spelling" => "0.12";
+  requires "Test::Vars" => "0.009";
   requires "Test::Version" => "1";
   requires "blib" => "1.01";
   requires "perl" => "5.006";

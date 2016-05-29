@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::Test::TidyAll - Adds a tidyall test to your distro
 
 # VERSION
 
-version 0.02
+version 0.03
 
 # SYNOPSIS
 
@@ -33,6 +33,15 @@ If this is provided, it will be passed to the `tidyall_ok()` sub.
 Note that you must provide a configuration file, either by using one of the
 default files that [Test::Code::TidyAll](https://metacpan.org/pod/Test::Code::TidyAll) looks for, or by providing another
 file via this option.
+
+## minimum\_perl
+
+If set, then this test will be skipped when run on Perls older than the one
+asked for. This is needed if you want to test your distribution on Perls where
+some of your tidyall plugins cannot run.
+
+Note that this will be compared to `$]` so you should pass a version like
+`5.010`, not a v-string like `v5.10`.
 
 ## verbose
 
@@ -91,7 +100,7 @@ button at [http://www.urth.org/~autarch/fs-donation.html](http://www.urth.org/~a
 
 # AUTHOR
 
-Dave Rolsky &lt;autarch@urth.org>
+Dave Rolsky <autarch@urth.org>
 
 # COPYRIGHT AND LICENCE
 

@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.03     2016-05-29
+
 - Added a minimum_perl configuration option. If set, then the test will be
   skipped on Perl versions that don't meet this requirement. This is useful if
   you have tidyall plugins that require a certain version of Perl.

@@ -23,6 +23,12 @@ has verbose => (
     default => 0,
 );
 
+has jobs => (
+    is      => 'ro',
+    isa     => 'Int',
+    default => 1,
+);
+
 has minimum_perl => (
     is        => 'ro',
     isa       => 'Str',
@@ -42,7 +48,7 @@ sub register_prereqs {
             type  => 'requires',
             phase => 'develop',
         },
-        'Test::Code::TidyAll' => '0.24',
+        'Test::Code::TidyAll' => '0.50',
         'Test::More'          => '0.88',
     );
 
@@ -56,7 +62,7 @@ sub gather_files {
         Dist::Zilla::File::InMemory->new(
             {
                 name    => 'xt/release/tidyall.t',
-                content => $self->_file_content(),
+                content => $self->_file_content,
             }
         ),
     );
@@ -89,24 +95,27 @@ use Test::Code::TidyAll 0.24;
 EOF
 
     my @args;
-    if ( $self->_has_conf_file() ) {
+    if ( $self->_has_conf_file ) {
         ## no critic (Subroutines::ProhibitCallsToUnexportedSubs)
-        push @args, ' conf_file => ' . B::perlstring( $self->conf_file() );
+        push @args, ' conf_file => ' . B::perlstring( $self->conf_file );
         ## use critic
     }
 
     push @args,
         ' verbose => ( exists $ENV{TEST_TIDYALL_VERBOSE} ? $ENV{TEST_TIDYALL_VERBOSE} : '
-        . ( $self->verbose() ? 1 : 0 ) . ' )';
+        . ( $self->verbose ? 1 : 0 ) . ' )';
+    push @args,
+        ' jobs => ( exists $ENV{TEST_TIDYALL_JOBS} ? $ENV{TEST_TIDYALL_JOBS} : '
+        . $self->jobs . ' )';
 
     my $args = join q{}, map { $_ . ",\n" } @args;
-    $args =~ s/^/    /g;
+    $args =~ s/^/    /gm;
 
     $content .= <<"EOF";
 tidyall_ok(
 $args);
 
-done_testing();
+done_testing;
 EOF
 
     return $content;
@@ -135,7 +144,7 @@ Dist::Zilla::Plugin::Test::TidyAll
 =head1 DESCRIPTION
 
 This is a L<Dist::Zilla> plugin that create a tidyall test in your distro
-using L<Test::Code::TidyAll>'s C<tidyall_ok()> sub.
+using L<Test::Code::TidyAll>'s C<tidyall_ok> sub.
 
 L<Code::TidyAll> C<0.24> and L<Test::More> C<0.88> will be added as C<develop
 requires> dependencies.
@@ -146,7 +155,7 @@ This plugin accepts the following configuration options:
 
 =head2 conf_file
 
-If this is provided, it will be passed to the C<tidyall_ok()> sub.
+If this is provided, it will be passed to the C<tidyall_ok> sub.
 
 Note that you must provide a configuration file, either by using one of the
 default files that L<Test::Code::TidyAll> looks for, or by providing another
@@ -161,15 +170,24 @@ some of your tidyall plugins cannot run.
 Note that this will be compared to C<$]> so you should pass a version like
 C<5.010>, not a v-string like C<v5.10>.
 
+=head2 jobs
+
+Set this to a value greater than one to enable parallel testing. This default
+to 1. Note that parallel testing requires L<Parallel::ForkManager>.
+
 =head2 verbose
 
 If this is true, then the verbose flag is set to true when calling
-C<tidyall_ok()>.
+C<tidyall_ok>.
 
 =head1 TEST_TIDYALL_VERBOSE ENVIRONMENT VARIABLE
 
 If you set the C<TEST_TIDYALL_VERBOSE> environment variable (to any value,
 true or false), then this value takes precedence over the C<verbose> setting
+for the plugin.
+
+If you set the C<TEST_TIDYALL_JOBS> environment variable (to any value,
+true or false), then this value takes precedence over the C<jobs> setting
 for the plugin.
 
 =head1 WHAT TO IGNORE IN YOUR TIDYALL CONFIG

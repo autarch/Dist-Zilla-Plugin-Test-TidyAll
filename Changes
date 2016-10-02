@@ -1,5 +1,8 @@
 {{$NEXT}}
 
+- Added a jobs configuration option.
+
+
 0.03     2016-05-29
 
 - Added a minimum_perl configuration option. If set, then the test will be

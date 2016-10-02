@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::Test::TidyAll - Adds a tidyall test to your distro
 
 # VERSION
 
-version 0.03
+version 0.04
 
 # SYNOPSIS
 
@@ -13,7 +13,7 @@ version 0.03
 # DESCRIPTION
 
 This is a [Dist::Zilla](https://metacpan.org/pod/Dist::Zilla) plugin that create a tidyall test in your distro
-using [Test::Code::TidyAll](https://metacpan.org/pod/Test::Code::TidyAll)'s `tidyall_ok()` sub.
+using [Test::Code::TidyAll](https://metacpan.org/pod/Test::Code::TidyAll)'s `tidyall_ok` sub.
 
 [Code::TidyAll](https://metacpan.org/pod/Code::TidyAll) `0.24` and [Test::More](https://metacpan.org/pod/Test::More) `0.88` will be added as `develop
 requires` dependencies.
@@ -28,7 +28,7 @@ This plugin accepts the following configuration options:
 
 ## conf\_file
 
-If this is provided, it will be passed to the `tidyall_ok()` sub.
+If this is provided, it will be passed to the `tidyall_ok` sub.
 
 Note that you must provide a configuration file, either by using one of the
 default files that [Test::Code::TidyAll](https://metacpan.org/pod/Test::Code::TidyAll) looks for, or by providing another
@@ -43,15 +43,24 @@ some of your tidyall plugins cannot run.
 Note that this will be compared to `$]` so you should pass a version like
 `5.010`, not a v-string like `v5.10`.
 
+## jobs
+
+Set this to a value greater than one to enable parallel testing. This default
+to 1. Note that parallel testing requires [Parallel::ForkManager](https://metacpan.org/pod/Parallel::ForkManager).
+
 ## verbose
 
 If this is true, then the verbose flag is set to true when calling
-`tidyall_ok()`.
+`tidyall_ok`.
 
 # TEST\_TIDYALL\_VERBOSE ENVIRONMENT VARIABLE
 
 If you set the `TEST_TIDYALL_VERBOSE` environment variable (to any value,
 true or false), then this value takes precedence over the `verbose` setting
+for the plugin.
+
+If you set the `TEST_TIDYALL_JOBS` environment variable (to any value,
+true or false), then this value takes precedence over the `jobs` setting
 for the plugin.
 
 # WHAT TO IGNORE IN YOUR TIDYALL CONFIG
@@ -102,7 +111,7 @@ button at [http://www.urth.org/~autarch/fs-donation.html](http://www.urth.org/~a
 
 Dave Rolsky <autarch@urth.org>
 
-# COPYRIGHT AND LICENCE
+# COPYRIGHT AND LICENSE
 
 This software is Copyright (c) 2015 - 2016 by Dave Rolsky.
 

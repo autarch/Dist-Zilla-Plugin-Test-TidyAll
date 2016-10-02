@@ -2,6 +2,9 @@
 
 - Added a jobs configuration option.
 
+- Made the generated test an author test, since it should pass on every
+  commit.
+
 
 0.03     2016-05-29
 

@@ -61,7 +61,7 @@ sub gather_files {
     $self->add_file(
         Dist::Zilla::File::InMemory->new(
             {
-                name    => 'xt/release/tidyall.t',
+                name    => 'xt/author/tidyall.t',
                 content => $self->_file_content,
             }
         ),
